@@ -26,7 +26,7 @@ namespace TrackManagement.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dsps",
+                name: "DSPs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -81,7 +81,7 @@ namespace TrackManagement.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_TrackDistributions_Dsps_DspId",
                         column: x => x.DspId,
-                        principalTable: "Dsps",
+                        principalTable: "DSPs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -100,7 +100,7 @@ namespace TrackManagement.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "UX_Dsps_Name",
-                table: "Dsps",
+                table: "DSPs",
                 column: "Name",
                 unique: true);
 
@@ -139,7 +139,7 @@ namespace TrackManagement.Infrastructure.Migrations
                 name: "TrackDistributions");
 
             migrationBuilder.DropTable(
-                name: "Dsps");
+                name: "DSPs");
 
             migrationBuilder.DropTable(
                 name: "Tracks");

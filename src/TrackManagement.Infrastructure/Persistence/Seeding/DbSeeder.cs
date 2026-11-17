@@ -1,11 +1,12 @@
-﻿using global::TrackManagement.Domain.Entities.Artists;
-using global::TrackManagement.Domain.Entities.DigitalServiceProviders;
-using global::TrackManagement.Domain.Entities.Distributions;
-using global::TrackManagement.Domain.Entities.Tracks;
+﻿using TrackManagement.Domain.Entities.Artists;
+using TrackManagement.Domain.Entities.DigitalServiceProviders;
+using TrackManagement.Domain.Entities.Distributions;
+using TrackManagement.Domain.Entities.Tracks;
 
 using Microsoft.EntityFrameworkCore;
+using TrackManagement.Infrastructure.Persistence.Context;
 
-namespace TrackManagement.Infrastructure.Seeding;
+namespace TrackManagement.Infrastructure.Persistence.Seeding;
 
 internal static class DbSeeder
 {
@@ -80,7 +81,7 @@ internal static class DbSeeder
         };
 
         db.Artists.AddRange(nour, layla, omar, karim);
-        db.Dsps.AddRange(spotify, apple, youtube);
+        db.DSPs.AddRange(spotify, apple, youtube);
         db.Tracks.AddRange(tracks); // distributions are reached through the Track aggregate
     }
 

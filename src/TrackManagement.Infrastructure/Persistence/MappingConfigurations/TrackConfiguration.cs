@@ -1,9 +1,9 @@
-﻿using global::TrackManagement.Domain.Entities.Tracks;
+﻿using TrackManagement.Domain.Entities.Tracks;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TrackManagement.Infrastructure.MappingConfigurations;
+namespace TrackManagement.Infrastructure.Persistence.MappingConfigurations;
 
 public sealed class TrackConfiguration : IEntityTypeConfiguration<Track>
 {

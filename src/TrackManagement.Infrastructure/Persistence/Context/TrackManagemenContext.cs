@@ -5,9 +5,9 @@ using TrackManagement.Domain.Entities.DigitalServiceProviders;
 using TrackManagement.Domain.Entities.Distributions;
 using TrackManagement.Domain.Entities.Tracks;
 
-namespace TrackManagement.Infrastructure;
+namespace TrackManagement.Infrastructure.Persistence.Context;
 
-public sealed class TrackManagemenContext(DbContextOptions<TrackManagemenContext> options) : DbContext(options), ITrackManagemenContext
+public sealed class TrackManagemenContext(DbContextOptions<TrackManagemenContext> options) : DbContext(options)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -15,7 +15,7 @@ public sealed class TrackManagemenContext(DbContextOptions<TrackManagemenContext
     }
 
     public DbSet<Artist> Artists => Set<Artist>();
-    public DbSet<DSP> Dsps => Set<DSP>();
+    public DbSet<DSP> DSPs => Set<DSP>();
     public DbSet<Track> Tracks => Set<Track>();
     public DbSet<TrackDistribution> TrackDistributions => Set<TrackDistribution>();
 

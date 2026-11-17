@@ -1,9 +1,9 @@
-﻿using global::TrackManagement.Domain.Entities.Artists;
+﻿using TrackManagement.Domain.Entities.Artists;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TrackManagement.Infrastructure.MappingConfigurations;
+namespace TrackManagement.Infrastructure.Persistence.MappingConfigurations;
 
 public sealed class ArtistConfiguration : IEntityTypeConfiguration<Artist>
 {

@@ -1,9 +1,9 @@
-﻿using global::TrackManagement.Domain.Entities.Distributions;
+﻿using TrackManagement.Domain.Entities.Distributions;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TrackManagement.Infrastructure.MappingConfigurations;
+namespace TrackManagement.Infrastructure.Persistence.MappingConfigurations;
 
 public sealed class TrackDistributionConfiguration : IEntityTypeConfiguration<TrackDistribution>
 {

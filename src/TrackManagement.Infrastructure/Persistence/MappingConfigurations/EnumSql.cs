@@ -1,4 +1,4 @@
-﻿namespace TrackManagement.Infrastructure.MappingConfigurations;
+﻿namespace TrackManagement.Infrastructure.Persistence.MappingConfigurations;
 
 internal static class EnumSql
 {
