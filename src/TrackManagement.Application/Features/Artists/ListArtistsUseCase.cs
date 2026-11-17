@@ -1,4 +1,4 @@
-﻿namespace TrackManagement.Application.Artists;
+﻿namespace TrackManagement.Application.Features.Artists;
 
 public sealed class ListArtistsUseCase(IArtistRepository artists)
 {

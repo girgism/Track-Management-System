@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 
-using TrackManagement.Application.Artists;
 using TrackManagement.Application.Common.Abstractions;
 using TrackManagement.Application.Common.Exceptions;
+using TrackManagement.Application.Common.Models;
+using TrackManagement.Application.Features.Artists;
 using TrackManagement.Domain.Entities.Tracks;
 
-namespace TrackManagement.Application.Tracks;
+namespace TrackManagement.Application.Features.Tracks;
 
 public sealed class CreateTrackUseCase(
     ITrackRepository tracks,
@@ -13,7 +14,7 @@ public sealed class CreateTrackUseCase(
     IUnitOfWork unitOfWork,
     IValidator<CreateTrackRequest> validator)
 {
-    public async Task<TrackDetailsResponse> ExecuteAsync(CreateTrackRequest request, CancellationToken cancellationToken)
+    public async Task<CommandResponse> ExecuteAsync(CreateTrackRequest request, CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(request, cancellationToken);
 
@@ -30,7 +31,6 @@ public sealed class CreateTrackUseCase(
         tracks.Add(track);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return await tracks.GetDetailsAsync(track.Id, cancellationToken)
-               ?? throw new InvalidOperationException($"Track {track.Id} was saved but could not be read back.");
+        return new CommandResponse(track.Id, "Track created successfully.");
     }
 }

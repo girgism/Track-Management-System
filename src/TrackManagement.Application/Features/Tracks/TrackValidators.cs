@@ -2,7 +2,7 @@
 
 using TrackManagement.Domain.Entities.Tracks;
 
-namespace TrackManagement.Application.Tracks;
+namespace TrackManagement.Application.Features.Tracks;
 
 public sealed class CreateTrackRequestValidator : AbstractValidator<CreateTrackRequest>
 {

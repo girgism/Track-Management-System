@@ -40,3 +40,12 @@ public sealed class ConflictException : AppException
     {
     }
 }
+
+/// <summary>Credentials were wrong. Deliberately vague so it never reveals which part failed (401).</summary>
+public sealed class AuthenticationFailedException : AppException
+{
+    public AuthenticationFailedException()
+        : base("auth.invalid_credentials", "Invalid email or password.")
+    {
+    }
+}

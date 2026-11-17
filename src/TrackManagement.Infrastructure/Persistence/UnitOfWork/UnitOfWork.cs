@@ -11,7 +11,7 @@ namespace TrackManagement.Infrastructure.Persistence;
 /// Commits the DbContext and translates database-level failures into Application exceptions,
 /// so no SQL or EF type ever reaches the use cases or the API.
 /// </summary>
-internal sealed class UnitOfWork(TrackManagemenContext db) : IUnitOfWork
+internal sealed class UnitOfWork(TrackManagementContext db) : IUnitOfWork
 {
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {

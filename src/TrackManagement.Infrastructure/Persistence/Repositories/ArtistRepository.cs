@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using TrackManagement.Application.Artists;
+using TrackManagement.Application.Features.Artists;
 using TrackManagement.Domain.Entities.Artists;
 using TrackManagement.Infrastructure.Persistence.Context;
 
 namespace TrackManagement.Infrastructure.Persistence.Repositories;
 
-internal sealed class ArtistRepository(TrackManagemenContext db) : IArtistRepository
+internal sealed class ArtistRepository(TrackManagementContext db) : IArtistRepository
 {
     public void Add(Artist artist) => db.Artists.Add(artist);
 

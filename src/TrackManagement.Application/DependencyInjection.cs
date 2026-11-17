@@ -2,8 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-using TrackManagement.Application.Artists;
-using TrackManagement.Application.Tracks;
+using TrackManagement.Application.Features.Artists;
 
 namespace TrackManagement.Application;
 
@@ -15,14 +14,13 @@ public static class DependencyInjection
 
         services.AddValidatorsFromAssemblyContaining<CreateArtistRequestValidator>();
 
-        // Registered explicitly: the list of use cases is the list of things the system can do.
-        services.AddScoped<CreateArtistUseCase>();
-        services.AddScoped<ListArtistsUseCase>();
-        services.AddScoped<CreateTrackUseCase>();
-        services.AddScoped<ListTracksUseCase>();
-        services.AddScoped<GetTrackUseCase>();
-        services.AddScoped<DistributeTrackUseCase>();
-        services.AddScoped<ChangeTrackStatusUseCase>();
+        // Registered automatically: the list of use cases is the list of things the system can do.
+        services.Scan(scan => scan
+                    .FromAssemblyOf<CreateArtistUseCase>()
+                    .AddClasses(classes => classes.Where(type =>
+                        type.Name.EndsWith("UseCase")))
+                    .AsSelf()
+                    .WithScopedLifetime());
 
         return services;
     }

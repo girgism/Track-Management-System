@@ -2,16 +2,17 @@
 
 using TrackManagement.Application.Common.Abstractions;
 using TrackManagement.Application.Common.Exceptions;
+using TrackManagement.Application.Common.Models;
 using TrackManagement.Domain.Entities.Artists;
 
-namespace TrackManagement.Application.Artists;
+namespace TrackManagement.Application.Features.Artists;
 
-public sealed class CreateArtistUseCase(
-    IArtistRepository artists,
-    IUnitOfWork unitOfWork,
-    IValidator<CreateArtistRequest> validator)
+public sealed class CreateArtistUseCase(IArtistRepository artists,
+                                        IUnitOfWork unitOfWork,
+                                        IValidator<CreateArtistRequest> validator)
 {
-    public async Task<ArtistResponse> ExecuteAsync(CreateArtistRequest request, CancellationToken cancellationToken)
+    public async Task<CommandResponse> ExecuteAsync(CreateArtistRequest request,
+                                                    CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(request, cancellationToken);
 
@@ -25,6 +26,6 @@ public sealed class CreateArtistUseCase(
         artists.Add(artist);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return new ArtistResponse(artist.Id, artist.Name, artist.Email, artist.Country);
+        return new CommandResponse(artist.Id, "Artist created successfully.");
     }
 }

@@ -26,3 +26,6 @@ SELECT TOP (1) NEWID(), TrackId, DspId, SYSDATETIMEOFFSET(), 'Pending' FROM Trac
 
 -- 4. Deleting an artist who has tracks -> FK violation (Restrict)
 DELETE FROM Artists WHERE Name = 'Nour El-Sayed';
+
+--- Check user seeding
+SELECT Email, Role, LEFT(PasswordHash, 22) AS HashStart, LEN(PasswordHash) AS HashLength FROM Users;

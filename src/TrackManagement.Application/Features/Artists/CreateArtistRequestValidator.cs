@@ -2,7 +2,7 @@
 
 using TrackManagement.Domain.Entities.Artists;
 
-namespace TrackManagement.Application.Artists;
+namespace TrackManagement.Application.Features.Artists;
 
 public sealed class CreateArtistRequestValidator : AbstractValidator<CreateArtistRequest>
 {

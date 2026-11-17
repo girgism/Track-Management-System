@@ -13,7 +13,7 @@ using TrackManagement.Infrastructure.Persistence.Context;
 
 namespace TrackManagement.Infrastructure.Migrations
 {
-    [DbContext(typeof(TrackManagemenContext))]
+    [DbContext(typeof(TrackManagementContext))]
     [Migration("20261117001045_InitialCreate")]
     partial class InitialCreate
     {

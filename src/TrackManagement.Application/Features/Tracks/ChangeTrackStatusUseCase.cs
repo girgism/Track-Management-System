@@ -2,15 +2,16 @@
 
 using TrackManagement.Application.Common.Abstractions;
 using TrackManagement.Application.Common.Exceptions;
+using TrackManagement.Application.Common.Models;
 
-namespace TrackManagement.Application.Tracks;
+namespace TrackManagement.Application.Features.Tracks;
 
 public sealed class ChangeTrackStatusUseCase(
     ITrackRepository tracks,
     IUnitOfWork unitOfWork,
     IValidator<ChangeTrackStatusRequest> validator)
 {
-    public async Task<TrackDetailsResponse> ExecuteAsync(
+    public async Task<CommandResponse> ExecuteAsync(
         Guid trackId,
         ChangeTrackStatusRequest request,
         CancellationToken cancellationToken)
@@ -25,7 +26,6 @@ public sealed class ChangeTrackStatusUseCase(
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return await tracks.GetDetailsAsync(trackId, cancellationToken)
-               ?? throw new InvalidOperationException($"Track {trackId} disappeared after saving.");
+        return new CommandResponse(track.Id, $"Track status changed to {request.Status}.");
     }
 }

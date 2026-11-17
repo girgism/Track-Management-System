@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using TrackManagement.Application.Dsps;
+using TrackManagement.Application.Features.DSPs;
 using TrackManagement.Infrastructure.Persistence.Context;
 
 namespace TrackManagement.Infrastructure.Persistence.Repositories;
 
-internal sealed class DspRepository(TrackManagemenContext db) : IDspRepository
+internal sealed class DspRepository(TrackManagementContext db) : IDspRepository
 {
     public async Task<IReadOnlyCollection<Guid>> GetExistingIdsAsync(
         IReadOnlyCollection<Guid> ids,

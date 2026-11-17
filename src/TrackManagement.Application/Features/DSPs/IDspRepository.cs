@@ -1,4 +1,4 @@
-﻿namespace TrackManagement.Application.Dsps;
+﻿namespace TrackManagement.Application.Features.DSPs;
 
 public interface IDspRepository
 {

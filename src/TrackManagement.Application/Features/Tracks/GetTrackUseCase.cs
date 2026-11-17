@@ -1,6 +1,6 @@
 ﻿using TrackManagement.Application.Common.Exceptions;
 
-namespace TrackManagement.Application.Tracks;
+namespace TrackManagement.Application.Features.Tracks;
 
 public sealed class GetTrackUseCase(ITrackRepository tracks)
 {

@@ -1,4 +1,4 @@
-﻿namespace TrackManagement.Application.Artists;
+﻿namespace TrackManagement.Application.Features.Artists;
 
 public sealed record CreateArtistRequest(string Name, string Email, string Country);
 

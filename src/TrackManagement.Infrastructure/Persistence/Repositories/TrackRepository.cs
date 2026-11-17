@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using TrackManagement.Application.Artists;
 using TrackManagement.Application.Common.Models;
-using TrackManagement.Application.Tracks;
+using TrackManagement.Application.Features.Artists;
+using TrackManagement.Application.Features.Tracks;
 using TrackManagement.Domain.Entities.Tracks;
 using TrackManagement.Infrastructure.Persistence.Context;
 
 namespace TrackManagement.Infrastructure.Persistence.Repositories;
 
-internal sealed class TrackRepository(TrackManagemenContext db) : ITrackRepository
+internal sealed class TrackRepository(TrackManagementContext db) : ITrackRepository
 {
     public void Add(Track track) => db.Tracks.Add(track);
 
@@ -20,9 +20,8 @@ internal sealed class TrackRepository(TrackManagemenContext db) : ITrackReposito
     public Task<bool> IsrcExistsAsync(Isrc isrc, CancellationToken cancellationToken) =>
         db.Tracks.AnyAsync(t => t.Isrc == isrc, cancellationToken);
 
-    public async Task<PagedResponse<TrackListItemResponse>> ListAsync(
-        TrackListQuery query,
-        CancellationToken cancellationToken)
+    public async Task<PagedResponse<TrackListItemResponse>> ListAsync(TrackListQuery query,
+                                                                      CancellationToken cancellationToken)
     {
         IQueryable<Track> tracks = db.Tracks.AsNoTracking();
 
@@ -37,7 +36,6 @@ internal sealed class TrackRepository(TrackManagemenContext db) : ITrackReposito
 
         var totalCount = await tracks.CountAsync(cancellationToken);
 
-        // Deterministic order (Id as tie-breaker) so paging never repeats or skips rows.
         var rows = await tracks
             .OrderByDescending(t => t.ReleaseDate)
             .ThenBy(t => t.Id)

@@ -14,7 +14,7 @@ internal static class DbSeeder
 
     public static void Seed(DbContext context, bool storeOperationPerformed)
     {
-        var db = (TrackManagemenContext)context;
+        var db = (TrackManagementContext)context;
 
         if (db.Artists.Any())
             return;
@@ -25,7 +25,7 @@ internal static class DbSeeder
 
     public static async Task SeedAsync(DbContext context, bool storeOperationPerformed, CancellationToken cancellationToken)
     {
-        var db = (TrackManagemenContext)context;
+        var db = (TrackManagementContext)context;
 
         if (await db.Artists.AnyAsync(cancellationToken))
             return;
@@ -34,7 +34,7 @@ internal static class DbSeeder
         await db.SaveChangesAsync(cancellationToken);
     }
 
-    private static void Populate(TrackManagemenContext db)
+    private static void Populate(TrackManagementContext db)
     {
         var nour = Artist.Create("Nour El-Sayed", "nour.elsayed@example.com", "EG");
         var layla = Artist.Create("Layla Haddad", "layla.haddad@example.com", "LB");

@@ -2,9 +2,10 @@
 
 using TrackManagement.Application.Common.Abstractions;
 using TrackManagement.Application.Common.Exceptions;
-using TrackManagement.Application.Dsps;
+using TrackManagement.Application.Common.Models;
+using TrackManagement.Application.Features.DSPs;
 
-namespace TrackManagement.Application.Tracks;
+namespace TrackManagement.Application.Features.Tracks;
 
 public sealed class DistributeTrackUseCase(
     ITrackRepository tracks,
@@ -13,7 +14,7 @@ public sealed class DistributeTrackUseCase(
     IValidator<DistributeTrackRequest> validator,
     TimeProvider timeProvider)
 {
-    public async Task<TrackDetailsResponse> ExecuteAsync(
+    public async Task<CommandResponse> ExecuteAsync(
         Guid trackId,
         DistributeTrackRequest request,
         CancellationToken cancellationToken)
@@ -36,7 +37,6 @@ public sealed class DistributeTrackUseCase(
         // One SaveChanges = one transaction: all DSP rows are saved, or none.
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return await tracks.GetDetailsAsync(trackId, cancellationToken)
-               ?? throw new InvalidOperationException($"Track {trackId} disappeared after saving.");
+        return new CommandResponse(track.Id, $"Track submitted to {request.DspIds.Count} DSP(s) successfully.");
     }
 }
