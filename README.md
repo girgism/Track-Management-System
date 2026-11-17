@@ -121,7 +121,7 @@ export ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=Trac
 
 ### 3. Create the database and seed it
 
-Seeding (sample data and the admin user) runs as part of the migration:
+Nothing to do in Development: the API applies pending migrations and seeds the sample data and the admin user automatically on startup. To do it manually instead (for example in CI):
 
 ```bash
 dotnet ef database update \
@@ -129,7 +129,7 @@ dotnet ef database update \
   --startup-project src/TrackManagement.Api
 ```
 
-> The application does not migrate the database on startup. Run the command above first, and again whenever new migrations are added.
+Outside Development, automatic migration is off by default. Enable it explicitly with `Database__MigrateOnStartup=true` (see [Configuration](#configuration)).
 
 ### 4. Run the API
 
@@ -176,6 +176,7 @@ Settings are read from `appsettings.json`, `appsettings.{Environment}.json`, use
 | `Jwt:ExpiryMinutes` | Token lifetime, 1 to 1440 | `60` |
 | `Seed:AdminEmail` | Email of the admin created by seeding | Development value only |
 | `Seed:AdminPassword` | Admin password, **at least 10 characters** | Development value only |
+| `Database:MigrateOnStartup` | Apply migrations and seed on startup. Always on in Development; opt-in elsewhere. | `false` |
 | `Cors:AllowedOrigins` | Allowed front-end origins | `http://localhost:4200`, `https://localhost:4200` |
 
 The app validates JWT settings at startup and refuses to start with a missing or weak signing key. If `Seed:AdminEmail` or `Seed:AdminPassword` is absent, no admin user is created.
@@ -464,7 +465,7 @@ dotnet ef migrations add <Name> \
   --startup-project src/TrackManagement.Api \
   --output-dir Persistence/Migrations
 
-# Apply migrations (also runs seeding)
+# Apply migrations manually (also runs seeding; the API does this itself in Development)
 dotnet ef database update \
   --project src/TrackManagement.Infrastructure \
   --startup-project src/TrackManagement.Api
@@ -499,7 +500,7 @@ dotnet test
 
 ## Known limitations
 
-- The API does not apply migrations on startup; run `dotnet ef database update` explicitly.
+- Automatic migration on startup is opt-in outside Development (`Database:MigrateOnStartup`). With several API instances, run migrations as a separate deployment step instead.
 - Only one role (`Admin`) exists. Every authenticated user can call every write endpoint.
 - There are no endpoints yet to create DSPs or to mark a distribution `Live` or `Rejected`; those transitions exist in the domain and are exercised by the seeder.
 - No refresh tokens, login throttling or account lockout.

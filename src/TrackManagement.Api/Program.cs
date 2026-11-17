@@ -7,6 +7,7 @@ using TrackManagement.Api.Authentication;
 using TrackManagement.Api.Middleware;
 using TrackManagement.Application;
 using TrackManagement.Infrastructure;
+using TrackManagement.Infrastructure.Persistence;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -49,6 +50,13 @@ try
         .AllowAnyMethod()));
 
     var app = builder.Build();
+
+    // Development always migrates (and seeds) on startup. Other environments must opt in with
+    // Database:MigrateOnStartup=true, so a production deployment never changes its schema by accident.
+    if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("Database:MigrateOnStartup"))
+    {
+        await app.Services.ApplyMigrationsAsync();
+    }
 
     app.UseSerilogRequestLogging();
     app.UseExceptionHandler();
