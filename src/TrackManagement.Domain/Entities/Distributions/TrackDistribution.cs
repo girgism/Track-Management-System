@@ -14,7 +14,7 @@ public sealed class TrackDistribution
     public DistributionStatus Status { get; private set; }
 
     public Track Track { get; private set; } = null!;
-    public Dsp Dsp { get; private set; } = null!;
+    public DSP Dsp { get; private set; } = null!;
 
     public static TrackDistribution Create(Guid trackId, Guid dspId, DateTimeOffset submittedAt) => new()
     {
